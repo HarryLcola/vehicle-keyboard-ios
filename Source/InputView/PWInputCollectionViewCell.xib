@@ -54,6 +54,7 @@
             <connections>
                 <outlet property="bottomLineView" destination="DdX-TV-JZQ" id="9aE-wY-mhl"/>
                 <outlet property="charLabel" destination="g5c-DQ-Rqh" id="Hzd-eW-zCZ"/>
+                <outlet property="leftLineView" destination="fTk-Ry-7yf" id="iF1-zR-j7b"/>
             </connections>
             <point key="canvasLocation" x="-216" y="132"/>
         </collectionViewCell>

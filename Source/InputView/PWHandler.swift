@@ -353,13 +353,14 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         view.bottomLineView.isHidden = !isShowBottomLineView
         
         if isShowBottomLineView {
+            view.leftLineView.isHidden = true
             view.layer.borderWidth = 0
             view.bottomLineView.backgroundColor = index == 0 ? firstCellBorderColor: cellBorderColor
         }
     }
     
     func setNewEnergyPlaceholder(view: PWInputCollectionViewCell, index: Int) {
-        if index == 6 && (getPaletChar(index: index) == ""){
+        if index == 7 && (getPaletChar(index: index) == ""){
             view.charLabel.text = newEnergyPlaceholder
             view.charLabel.font = UIFont.systemFont(ofSize: newEnergyPlaceholderSize)
             view.charLabel.textColor = newEnergyPlaceholderColor

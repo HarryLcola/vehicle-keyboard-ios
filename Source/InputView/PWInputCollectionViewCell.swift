@@ -10,6 +10,8 @@ import UIKit
 
 class PWInputCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var charLabel: UILabel!
+    
+    @IBOutlet weak var leftLineView: UIView!
     @IBOutlet weak var bottomLineView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
