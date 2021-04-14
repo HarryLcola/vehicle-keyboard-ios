@@ -16,7 +16,8 @@ import UIKit
 }
 
 public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
-    
+    //第一个格子中字体的颜色
+    @objc public var firstTextColor = UIColor.blue
     //格子中字体的颜色
     @objc public var textColor = UIColor.black
     //格子中字体的大小
@@ -25,6 +26,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     //当前格子中的输入内容
     @objc public  var paletNumber = ""
+    
+    //第一个格子的背景色
+    @objc public var firstItemColor = UIColor.blue.withAlphaComponent(0.1)
     //每个格子的背景色
     @objc public var itemColor = UIColor.white
     //格子之间的间距
@@ -103,7 +107,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
      **/
     @objc public func checkNewEnginePlate() ->Bool{
         for i in 0..<paletNumber.count {
-            let listModel =  KeyboardEngine.generateLayout(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: i, presetNumber: KeyboardEngine.subString(str: paletNumber, start: 0, length: i), numberType:.newEnergy,isMoreType:false);
+            let listModel = KeyboardEngine.generateLayout(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: i, presetNumber: KeyboardEngine.subString(str: paletNumber, start: 0, length: i), numberType:.newEnergy,isMoreType:false);
             var result = false
             for j in 0..<listModel.rowArray().count {
                 for k in 0..<listModel.rowArray()[j].count{
@@ -169,7 +173,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             view.addSubview(backgroundView)
             setNSLayoutConstraint(subView: backgroundView, superView: view)
             backgroundView.layer.borderWidth = 1
-            backgroundView.layer.borderColor = cellBorderColor.cgColor
+            backgroundView.layer.borderColor = UIColor.clear.cgColor
             backgroundView.isUserInteractionEnabled = false
             backgroundView.layer.masksToBounds = true
             backgroundView.layer.cornerRadius = cornerRadius
@@ -311,9 +315,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
         cell.charLabel.text = getPaletChar(index: indexPath.row)
-        cell.charLabel.textColor = textColor
+        cell.charLabel.textColor = indexPath.row == 0 ? firstTextColor: textColor
         cell.charLabel.font = UIFont.systemFont(ofSize: textFontSize)
-        cell.backgroundColor = itemColor
+        cell.backgroundColor = indexPath.row == 0 ? firstItemColor: itemColor
         if indexPath.row == selectIndex {
             //给cell加上选中的边框
             selectView.layer.borderWidth = 2

@@ -36,17 +36,15 @@ class ViewController: UIViewController,PWHandlerDelegate {
         handler.delegate = self
         
         //改变主题色
-//        handler.mainColor = UIColor.red
+        handler.mainColor = UIColor.blue
         //改变字体大小
-//        handler.textFontSize = 18
-        //改变字体颜色
-//        handler.textColor = UIColor.blue
+        handler.textFontSize = 18
         //在格子间增加间隔
-//        handler.itemSpacing = 20
+        handler.itemSpacing = 10
 //        handler.cellBorderColor = UIColor.gray
-//        handler.cornerRadius = 8
+        handler.cornerRadius = 5
         //格子中间的背景色
-//        handler.itemColor = UIColor.gray
+        handler.itemColor = UIColor.white
         
         
         handler.setKeyBoardView(view: plateInputVIew)
