@@ -16,6 +16,7 @@ import UIKit
 }
 
 public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
+    @objc public var isShowBottomLineView = true
     //第一个格子中字体的颜色
     @objc public var firstTextColor = UIColor.blue
     //格子中字体的颜色
@@ -26,14 +27,12 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     //当前格子中的输入内容
     @objc public  var paletNumber = ""
-    
     //第一个格子的背景色
     @objc public var firstItemColor = UIColor.blue.withAlphaComponent(0.1)
     //每个格子的背景色
     @objc public var itemColor = UIColor.white
     //格子之间的间距
     @objc public var itemSpacing:CGFloat = 0
-    
     //边框颜色
     @objc public var firstCellBorderColor = UIColor(red: 216/256.0, green: 216/256.0, blue: 216/256.0, alpha: 1)
     //边框颜色
@@ -41,6 +40,11 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     //每个格子的圆角(ps:仅在有间距时生效)
     @objc public var cornerRadius:CGFloat = 2
+    
+    //
+    @objc public var newEnergyPlaceholder: String = "新能源"
+    @objc public var newEnergyPlaceholderSize: CGFloat = 10
+    @objc public var newEnergyPlaceholderColor = UIColor.black
     
     @objc public weak var  delegate : PWHandlerDelegate?
     
@@ -336,9 +340,30 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             cell.layer.borderWidth = 1
             cell.layer.borderColor = indexPath.row == 0 ? firstCellBorderColor.cgColor: cellBorderColor.cgColor
         }
+        setNewEnergyPlaceholder(view: cell, index: indexPath.row)
+        dealWithIsShowBottomLineView(view: cell, index: indexPath.row)
         corners(view: cell, index: indexPath.row)
         cell.layer.masksToBounds = true
+        
+        
         return cell
+    }
+    
+    func dealWithIsShowBottomLineView(view: PWInputCollectionViewCell, index: Int) {
+        view.bottomLineView.isHidden = !isShowBottomLineView
+        
+        if isShowBottomLineView {
+            view.layer.borderWidth = 0
+            view.bottomLineView.backgroundColor = index == 0 ? firstCellBorderColor: cellBorderColor
+        }
+    }
+    
+    func setNewEnergyPlaceholder(view: PWInputCollectionViewCell, index: Int) {
+        if index == 6 && (getPaletChar(index: index) == ""){
+            view.charLabel.text = newEnergyPlaceholder
+            view.charLabel.font = UIFont.systemFont(ofSize: newEnergyPlaceholderSize)
+            view.charLabel.textColor = newEnergyPlaceholderColor
+        }
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
